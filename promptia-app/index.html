@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1f4f5f">
+    <title>PROMPTIA - Validador Offline</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Validador offline</p>
+        <h1>PROMPTIA</h1>
+      </div>
+      <div class="status" id="offlineStatus">Pronto para uso offline</div>
+    </header>
+
+    <main class="shell">
+      <nav class="tabs" aria-label="Navegação principal">
+        <button class="tab active" data-view="scanner">Gabarito</button>
+        <button class="tab" data-view="glossary">Glossário</button>
+        <button class="tab" data-view="cards">Banco local</button>
+        <button class="tab" data-view="score">Placar</button>
+      </nav>
+
+      <section class="view active" id="scanner">
+        <div class="panel intro">
+          <div>
+            <p class="eyebrow">Tela de gabarito</p>
+            <h2>Digite o código da carta</h2>
+            <p>Use os códigos do protótipo, como <strong>S01-P3</strong>, para revelar a situação, o prompt escolhido, a resposta correspondente e a lição da rodada.</p>
+          </div>
+          <form id="lookupForm" class="lookup">
+            <label for="cardCode">Código</label>
+            <div class="lookupRow">
+              <input id="cardCode" name="cardCode" autocomplete="off" placeholder="Ex.: S01-P3">
+              <button type="submit">Revelar</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="panel result" id="resultPanel" hidden>
+          <div class="resultHeader">
+            <div>
+              <p class="eyebrow" id="resultCode"></p>
+              <h2 id="resultTitle"></h2>
+            </div>
+            <span class="level" id="resultLevel"></span>
+          </div>
+
+          <div class="compare">
+            <article>
+              <h3>Prompt original</h3>
+              <p id="resultPrompt"></p>
+              <div class="chips" id="promptChips"></div>
+            </article>
+            <article>
+              <h3>Resposta esperada</h3>
+              <p id="resultResponse"></p>
+            </article>
+          </div>
+
+          <div class="lesson">
+            <h3>Lição da rodada</h3>
+            <p id="resultLesson"></p>
+          </div>
+
+          <div class="ethics" id="ethicsBox">
+            <h3>Ponto ético</h3>
+            <p id="resultEthics"></p>
+          </div>
+        </div>
+
+        <div class="panel emptyState" id="emptyState">
+          <h2>Códigos disponíveis no protótipo</h2>
+          <p>Há 10 situações e 30 prompts cadastrados. Cada situação tem 3 versões: P1 vaga, P2 intermediária e P3 mais completa.</p>
+          <div class="codeGrid" id="quickCodes"></div>
+        </div>
+      </section>
+
+      <section class="view" id="glossary">
+        <div class="panel">
+          <p class="eyebrow">Tela educativa</p>
+          <h2>Termos de IA e Engenharia de Prompt</h2>
+          <div class="glossaryGrid" id="glossaryGrid"></div>
+        </div>
+      </section>
+
+      <section class="view" id="cards">
+        <div class="panel">
+          <div class="sectionHeader">
+            <div>
+              <p class="eyebrow">Banco de dados local</p>
+              <h2>Cartas cadastradas</h2>
+            </div>
+            <input id="cardSearch" placeholder="Filtrar por tema, código ou conceito">
+          </div>
+          <div class="tableWrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Situação</th>
+                  <th>Qualidade</th>
+                  <th>Conceitos</th>
+                </tr>
+              </thead>
+              <tbody id="cardTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="score">
+        <div class="panel">
+          <p class="eyebrow">Pontuação estilo Dixit</p>
+          <h2>Placar da rodada</h2>
+          <div class="scoreGrid">
+            <label>Jogador que acertou
+              <input id="hits" type="number" min="0" value="0">
+            </label>
+            <label>Jogadores enganados pela sua resposta
+              <input id="tricks" type="number" min="0" value="0">
+            </label>
+            <label>Todos acertaram?
+              <select id="allHit">
+                <option value="no">Não</option>
+                <option value="yes">Sim</option>
+              </select>
+            </label>
+            <label>Ninguém acertou?
+              <select id="noneHit">
+                <option value="no">Não</option>
+                <option value="yes">Sim</option>
+              </select>
+            </label>
+          </div>
+          <div class="scoreResult" id="scoreResult">Jogador: 0 pontos | Narrador: 0 pontos</div>
+          <p class="hint">Regra: acertou +2; enganou +1 por jogador; se ninguém acertar, narrador -1; se todos acertarem, narrador 0.</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

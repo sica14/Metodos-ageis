@@ -1,0 +1,9 @@
+{
+  "name": "PROMPTIA - Validador Offline",
+  "short_name": "PROMPTIA",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f8f6f0",
+  "theme_color": "#1f4f5f",
+  "icons": []
+}
